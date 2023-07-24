@@ -5,11 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="./style.css">
-    <title>Unicode app</title>
+    <title>Convertidor de signos Unicode a caracteres en notación de escape</title>
   </head>
   <body>
-    <div id="modal"></div>
-    <div id="root">not rendered</div>
+    <h1>Convertidor de signos Unicode a caracteres en notación de escape</h1>
+    <p>La notación de escape es un mecanismo utilizado en muchos lenguajes de programación para representar caracteres especiales o inusuales dentro de cadenas de texto. Consiste en utilizar secuencias de escape, que son combinaciones específicas de caracteres, para representar letras que de otra manera serían difíciles de escribir o interpretar.<p>
+    <p>Algunos lenguajes de programación y entornos de desarrollo pueden tener restricciones sobre la codificación de caracteres en los archivos fuente. Si el archivo fuente está codificado en una forma que no admite directamente el carácter "ñ" (por ejemplo, una codificación ASCII), escribir el carácter directamente podría generar errores o comportamientos inesperados. En estos casos, utilizar la notación de escape "\u00f1" garantiza que el carácter sea correctamente representado y procesado sin importar la codificación del archivo fuente. En este caso, "\u" indica que se trata de una secuencia Unicode, y "00f1" es el valor hexadecimal correspondiente a la letra "ñ" en Unicode.</p>
+    <p>A continuación puedes convertir los caracteres Unicode que escribas como á, ñ, ç, 象, o 🦁 a caracteres en secuencia de escape que podrás reproducir en ficheros con una codificación distinta a <a href="https://es.wikipedia.org/wiki/UTF-8">UTF-8</a>. Por ejemplo <a href="https://es.wikipedia.org/wiki/ISO/IEC_8859-1">Latin-1 o ISO-8859-1</a>.</p>
+    <div id="root"></div>
     <script type="module" src="./App.jsx">
     </script>
   </body>
