@@ -21,7 +21,7 @@ npm run build
 # Obtener mensaje de commit
 commit_message=$2
 while [ -z $commit_message ]; do
-  echo "Introduce un mensaje para el commit. Ej: build for production"
+  echo "Introduce un mensaje para el commit. Ej: Build for production"
   read commit_message
 done
 
