@@ -3,7 +3,7 @@ const ConverterSection = (props) => {
     <section>
       <div>
         <h3>Texto</h3>
-        <textarea cols="20" rows="10" onChange={(e) => {
+        <textarea cols="30" rows="10" onChange={(e) => {
           const newText = e.target.value
           props.onTextToReplaceChange(newText)
         }}>
