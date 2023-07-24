@@ -20,7 +20,7 @@ Podemos construir la aplicación en el directorio `dist` con:
 npm run dist
 ```
 
-Al construir en `dist` la aplicacion se despliega en https://anerodata.github.io/unicode-app/ ejecutando:
+Al construir en `dist` y previamente haber creado la rama `gh-pages`, la aplicacion se despliega en `https://<user>.github.io/unicode-app/` ejecutando:
 
 ```
 git add dist && git commit -m "Build for production"
