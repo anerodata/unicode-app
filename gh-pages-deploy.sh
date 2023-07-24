@@ -1,5 +1,6 @@
 #!/bin/sh
-#
+# Usage: ./gh-pages-deploy.sh dist "Build for production"
+
 # Comprobar si el usuario esta en el top level de trabajo
 repo_root=$(git rev-parse --show-toplevel)
 current_dir=$(pwd)
