@@ -20,7 +20,7 @@ npm run dev
 npm run dist
 ```
 
-Si quisieramos desplegar en `https://<user>.github.io/unicode-app/`, podemos ejecutar el siguiente script que construye la aplicación en la carpeta `dist`, añade al _stage_ dicho directorio, hace _commit_ y sube el contenido del directorio a la rama `gh-pages`. 
+Si quisieramos desplegar en `https://<user>.github.io/unicode-characters-parser/`, podemos ejecutar el siguiente script que construye la aplicación en la carpeta `dist`, añade al _stage_ dicho directorio, hace _commit_ y sube el contenido del directorio a la rama `gh-pages`. 
 
 También hace un push a la rama `main` para tener ambas ramas coordinadas.
 
