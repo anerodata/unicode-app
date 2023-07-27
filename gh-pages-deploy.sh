@@ -12,18 +12,18 @@ fi
 # Construir directorio
 npm run build
 
-# Obtener mensaje de commit
+# Añadir dist al stage
+git add dist
+
+# Commitear cambios
 commit_message=$1
 while [ -z "$commit_message" ]; do
   echo "Introduce un mensaje para el commit. Ej: Build for production"
   read commit_message
 done
-
-# Desplegar directorio dist
-git add dist
 git commit -m "$commit_message"
 
-# Push en la rama del commit con el contenido del directorio construido
+# Desplegar directorio dist en gh-pages
 git subtree push --prefix dist origin gh-pages
 
 # Push del commit en main
