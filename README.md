@@ -27,12 +27,12 @@ También hace un push a la rama `main` para tener ambas ramas coordinadas.
 El _script_ cuenta con que la carpeta donde se va a almacenar el resultado del `build` se llama `dist`
 
 ```
-./gh-deploy.sh dist "Build for production"
-```
-
-Tambien podemos escoger directamente el nombre de la carpeta que vamos a subir a la rama `gh-pages` y el contenido del `commit` de la siguiente manera:
-
-```
 ./gh-deploy.sh
+```
+
+Tambien podemos parametrizar el contenido del `commit` de la siguiente manera:
+
+```
+./gh-deploy.sh "Build for production"
 ```
 
