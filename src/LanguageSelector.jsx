@@ -1,5 +1,4 @@
 import langs from './data/langs.js'
-console.log(langs)
 const LanguageSelector = (props) => {
   return (
     <select>
