@@ -1,9 +1,18 @@
 import { createRoot } from 'react-dom/client'
 import { useState } from 'react'
 import ConverterSection from './ConverterSection.jsx'
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 
 const App = () => {
   const [ textModifiedHook, setTextModifiedHook ] = useState('')
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: Infinity,
+        cacheTime: Infinity
+      }
+    }
+  })
   const replaceUTFWithUnicode = (str) => {
     const regex = /[^\u{0000}-\u{007F}]/gu
     return str.replace(regex, (match) => {
@@ -14,9 +23,11 @@ const App = () => {
   }
   return (
     <div>
-      <ConverterSection onTextToReplaceChange={(value) => {
+      <QueryClientProvider client={queryClient}>
+        <ConverterSection onTextToReplaceChange={(value) => {
         setTextModifiedHook(replaceUTFWithUnicode(value))
       }} valueModified={textModifiedHook} />
+      </QueryClientProvider>
     </div>
   )
 }

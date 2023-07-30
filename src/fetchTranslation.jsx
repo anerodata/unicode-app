@@ -8,6 +8,6 @@ async function fetchTranslation () {
     }),
     headers: { 'Content-Type': 'application/json' }
   });
-  console.log(await res.json());
+  return res.json();
 }
 export default fetchTranslation

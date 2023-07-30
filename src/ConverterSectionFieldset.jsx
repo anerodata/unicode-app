@@ -1,5 +1,9 @@
+import fetchTranslation from './fetchTranslation.jsx'
+import { useQuery } from "@tanstack/react-query"
 import langs from './data/langs.js'
 const ConverterSection = (props) => {
+  const translation = useQuery(['search', {}], fetchTranslation)
+  console.log(translation.data)
   return (
     <div>
       <h3>{props.title}</h3>
