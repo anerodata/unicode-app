@@ -1,9 +1,7 @@
-import fetchTranslation from './fetchTranslation.jsx'
 import { useQuery } from "@tanstack/react-query"
 import langs from './data/langs.js'
 const ConverterSection = (props) => {
-  const translation = useQuery(['search', {}], fetchTranslation)
-  console.log(translation.data)
+  const value = props.loading ? '...' : props.value
   return (
     <div>
       <h3>{props.title}</h3>
@@ -19,7 +17,7 @@ const ConverterSection = (props) => {
           )
         } 
       </select>
-      <textarea cols="30" rows="10" value={props.value} readOnly={props.readOnly} onChange={(e) => {
+      <textarea cols="30" rows="10" value={value} readOnly={props.readOnly} onChange={(e) => {
         const newText = e.target.value
         props.onTextToReplaceChange(newText)
       }}>
