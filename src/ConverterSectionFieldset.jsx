@@ -1,4 +1,3 @@
-import { useQuery } from "@tanstack/react-query"
 import langs from './data/langs.js'
 const ConverterSection = (props) => {
   const value = props.loading ? '...' : props.value
