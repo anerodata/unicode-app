@@ -1,15 +1,15 @@
 const langs = [
   {
     name: 'Español',
-    code: 'ES'
+    code: 'es'
   },
   {
     name: 'Inglés',
-    code: 'EN'
+    code: 'en'
   },
   {
     name: 'Portugués',
-    code: 'PT'
+    code: 'pt'
   }
 ] 
 export default langs

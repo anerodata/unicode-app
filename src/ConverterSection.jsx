@@ -3,12 +3,17 @@ import { useQuery } from "@tanstack/react-query"
 import { useState } from 'react'
 import fetchTranslation from './fetchTranslation.jsx'
 const ConverterSection = (props) => {
-  const translation = useQuery(['search', {}], fetchTranslation)
-  console.log(translation.data)
-  const [ defaultLangFirst, setDefaultLangFirst ] = useState('ES')
-  const [ defaultLangSecond, setDefaultLangSecond ] = useState('EN')
-  const [ defaultLangThird, setDefaultLangThird ] = useState('PT')
+  const [ defaultLangFirst, setDefaultLangFirst ] = useState('es')
+  const [ defaultLangSecond, setDefaultLangSecond ] = useState('en')
+  const [ defaultLangThird, setDefaultLangThird ] = useState('pt')
   const [ isLoading, setIsLoading ] = useState(false) 
+  const [ translateParamsToSecondLang, setTranslateParamsToSecondLang ] = useState({
+    query: "",
+    source: defaultLangFirst,
+    target: defaultLangSecond
+  })
+  const translationToSecondLang = useQuery([ 'translate', translateParamsToSecondLang ], fetchTranslation)
+  console.log(translationToSecondLang.data)
   return (
     <section>
       <div>
@@ -17,7 +22,13 @@ const ConverterSection = (props) => {
   { defaultLangThird }
         <ConverterSectionFieldset
           title="Texto"
-          onTextToReplaceChange={() => {
+          onTextToReplaceChange={(value) => {
+            const obj = {
+              query: value,
+              source: defaultLangFirst,
+              target: defaultLangSecond
+            }
+            setTranslateParamsToSecondLang(obj)
             setIsLoading(true)
             props.onTextToReplaceChange
           }}
@@ -30,6 +41,7 @@ const ConverterSection = (props) => {
           readOnly={true}
           defaultLang={defaultLangSecond}
           loading={isLoading}
+          onLangChange={(value) => setDefaultLangSecond(value)}
         />
         <ConverterSectionFieldset
           title="Texto con caracteres Unicode en notación de escape"
@@ -37,6 +49,7 @@ const ConverterSection = (props) => {
           readOnly={true}
           defaultLang={defaultLangThird}
           loading={isLoading}
+          onLangChange={(value) => setDefaultLangThird(value)}
         />
       </div>
     </section>

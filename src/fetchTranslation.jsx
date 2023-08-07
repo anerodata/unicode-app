@@ -1,13 +1,16 @@
-async function fetchTranslation () {
+async function fetchTranslation ({ queryKey }) {
+  console.log(queryKey)
+  const { query, source, target } = queryKey[1]
+  console.log(query, source, target)
   const res = await fetch('https://translate.argosopentech.com/translate', {
     method: 'POST',
     body: JSON.stringify({
-      q: 'Esto es una prueba',
-      source: 'es',
-      target: 'en'
+      q: query,
+      source: source,
+      target: target
     }),
     headers: { 'Content-Type': 'application/json' }
   });
-  return res.json();
+  return await res.json();
 }
 export default fetchTranslation
