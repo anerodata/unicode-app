@@ -12,8 +12,20 @@ const ConverterSection = (props) => {
     source: defaultLangFirst,
     target: defaultLangSecond
   })
-  const translationToSecondLang = useQuery([ 'translate', translateParamsToSecondLang ], fetchTranslation)
-  console.log(translationToSecondLang.data)
+  const debounce = (callback, ms) => {
+    let timerId
+    return (...args) => {
+      clearTimeout(timerId)
+      timerId = setTimeout(() => {
+        alert(timerId)
+        console.log(ms, ...args)
+        callback(...args)
+      }, ms);
+      console.log(timerId)
+    }
+  }
+  // const translationToSecondLang = useQuery([ 'translate', translateParamsToSecondLang ], fetchTranslation)
+  // console.log(translationToSecondLang.data)
   return (
     <section>
       <div>
@@ -22,16 +34,15 @@ const ConverterSection = (props) => {
   { defaultLangThird }
         <ConverterSectionFieldset
           title="Texto"
-          onTextToReplaceChange={(value) => {
+          onTextToReplaceChange={debounce((value) => {
             const obj = {
               query: value,
               source: defaultLangFirst,
               target: defaultLangSecond
             }
-            setTranslateParamsToSecondLang(obj)
-            setIsLoading(true)
-            props.onTextToReplaceChange
-          }}
+            // setTranslateParamsToSecondLang(obj)
+            props.onTextToReplaceChange(value)
+          }, 2000)}
           defaultLang={defaultLangFirst}
           onLangChange={(value) => setDefaultLangFirst(value)}
         />
@@ -40,7 +51,6 @@ const ConverterSection = (props) => {
           value={props.valueModified}
           readOnly={true}
           defaultLang={defaultLangSecond}
-          loading={isLoading}
           onLangChange={(value) => setDefaultLangSecond(value)}
         />
         <ConverterSectionFieldset
@@ -48,7 +58,6 @@ const ConverterSection = (props) => {
           value={props.valueModified}
           readOnly={true}
           defaultLang={defaultLangThird}
-          loading={isLoading}
           onLangChange={(value) => setDefaultLangThird(value)}
         />
       </div>
