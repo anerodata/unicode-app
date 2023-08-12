@@ -19,7 +19,8 @@ const ConverterSection = (props) => {
   const debounceMs = 750
   const debounce = useCallback(
     debounceSetup(async (value) => {
-      const debounceMsBetweenFetchs = 1000
+      setIsLoading(true)
+      const debounceMsBetweenFetchs = 500
       const translate = async (languageTarget) => {
         const obj = {
           query: value,
@@ -39,7 +40,6 @@ const ConverterSection = (props) => {
   ) 
   useEffect(() => {
     if (inputValue !== '') {
-      setIsLoading(true)
       debounce(inputValue)
     }
   }, [inputValue])
