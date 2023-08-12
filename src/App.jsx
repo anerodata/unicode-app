@@ -4,7 +4,8 @@ import ConverterSection from './ConverterSection.jsx'
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 
 const App = () => {
-  const [ textModifiedHook, setTextModifiedHook ] = useState('')
+  const [ secondTextModifiedHook, setSecondTextModifiedHook ] = useState('')
+  const [ thirdTextModifiedHook, setThirdTextModifiedHook ] = useState('')
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -24,9 +25,13 @@ const App = () => {
   return (
     <div>
       <QueryClientProvider client={queryClient}>
-        <ConverterSection onTextToReplaceChange={(value) => {
-        setTextModifiedHook(replaceUTFWithUnicode(value))
-      }} valueModified={textModifiedHook} />
+        <ConverterSection onTextToReplaceChange={(secondValue, thirdValue) => {
+          setSecondTextModifiedHook(replaceUTFWithUnicode(secondValue))
+          setThirdTextModifiedHook(replaceUTFWithUnicode(thirdValue))
+        }}
+          secondValueModified={secondTextModifiedHook} 
+          thirdValueModified={thirdTextModifiedHook}
+        />
       </QueryClientProvider>
     </div>
   )

@@ -16,11 +16,11 @@ const ConverterSection = (props) => {
       }, ms)
     }
   }
-  const debounceMs = 1000
+  const debounceMs = 750
   const debounce = useCallback(
-    debounceSetup((value) => {
+    debounceSetup(async (value) => {
+      const debounceMsBetweenFetchs = 1000
       const translate = async (languageTarget) => {
-        setIsLoading(true)
         const obj = {
           query: value,
           source: defaultLangFirst,
@@ -29,17 +29,18 @@ const ConverterSection = (props) => {
         const res = await fetchTranslation(obj)
         return res
       }
-      translate(defaultLangSecond).then(res => {
-        props.onTextToReplaceChange(res.translatedText)
-        setIsLoading(false)
-      })
+      const secondLangRes = await translate(defaultLangSecond)
+      await new Promise((resolve) => setTimeout(() => resolve()), debounceMsBetweenFetchs)
+      const thirdLangRes = await translate(defaultLangThird)
+      props.onTextToReplaceChange(secondLangRes.translatedText, thirdLangRes.translatedText)
+      setIsLoading(false)
     }, debounceMs),
     []
   ) 
   useEffect(() => {
     if (inputValue !== '') {
       setIsLoading(true)
-      debounce(inputValue, 2)
+      debounce(inputValue)
     }
   }, [inputValue])
   return (
@@ -57,7 +58,7 @@ const ConverterSection = (props) => {
         />
         <ConverterSectionFieldset
           title="Texto con caracteres Unicode en notación de escape"
-          value={props.valueModified}
+          value={props.secondValueModified}
           readOnly={true}
           defaultLang={defaultLangSecond}
           loading={isLoading}
@@ -65,7 +66,7 @@ const ConverterSection = (props) => {
         />
         <ConverterSectionFieldset
           title="Texto con caracteres Unicode en notación de escape"
-          value={props.valueModified}
+          value={props.thirdValueModified}
           readOnly={true}
           defaultLang={defaultLangThird}
           loading={isLoading}
