@@ -9,23 +9,25 @@ const ConverterSection = (props) => {
   const [ inputValue, setInputValue ] = useState('')
   useEffect(() => {
     if (inputValue !== '') {
-      const obj = {
-        query: inputValue,
-        source: defaultLangFirst,
-        target: defaultLangSecond
+      const translate = async (languageTarget) => {
+        setIsLoading(true)
+        const obj = {
+          query: inputValue,
+          source: defaultLangFirst,
+          target: languageTarget
+        }
+        const res = await fetchTranslation(obj)
+        return res
       }
-      setIsLoading(true)
-      fetchTranslation(obj).then(res => {
-        console.log(res)
+      translate(defaultLangSecond).then(res => {
+        setIsLoading(true)
         props.onTextToReplaceChange(res.translatedText)
         setIsLoading(false)
       })
     }
   }, [inputValue])
   const handleInputChange = val => {
-    setIsLoading(true)
     setInputValue(val)
-    setIsLoading(false)
   }
   return (
     <section>
