@@ -1,5 +1,5 @@
 import ConverterSectionFieldset from './ConverterSectionFieldset.jsx'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import fetchTranslation from './fetchTranslation.jsx'
 const ConverterSection = (props) => {
   const [ defaultLangFirst, setDefaultLangFirst ] = useState('es')
@@ -7,12 +7,22 @@ const ConverterSection = (props) => {
   const [ defaultLangThird, setDefaultLangThird ] = useState('pt')
   const [ isLoading, setIsLoading ] = useState(false) 
   const [ inputValue, setInputValue ] = useState('')
-  useEffect(() => {
-    if (inputValue !== '') {
+  const debounceSetup = (callback, ms) => {
+    let timerId
+    return (...args) => {
+      clearTimeout(timerId)
+      timerId = setTimeout(() => {
+        callback(...args)
+      }, ms)
+    }
+  }
+  const debounceMs = 1000
+  const debounce = useCallback(
+    debounceSetup((value) => {
       const translate = async (languageTarget) => {
         setIsLoading(true)
         const obj = {
-          query: inputValue,
+          query: value,
           source: defaultLangFirst,
           target: languageTarget
         }
@@ -20,15 +30,18 @@ const ConverterSection = (props) => {
         return res
       }
       translate(defaultLangSecond).then(res => {
-        setIsLoading(true)
         props.onTextToReplaceChange(res.translatedText)
         setIsLoading(false)
       })
+    }, debounceMs),
+    []
+  ) 
+  useEffect(() => {
+    if (inputValue !== '') {
+      setIsLoading(true)
+      debounce(inputValue, 2)
     }
   }, [inputValue])
-  const handleInputChange = val => {
-    setInputValue(val)
-  }
   return (
     <section>
       <div>
@@ -37,7 +50,7 @@ const ConverterSection = (props) => {
         { defaultLangThird }
         <ConverterSectionFieldset
           title="Texto"
-          onTextToReplaceChange={handleInputChange}
+          onTextToReplaceChange={(value) => setInputValue(value)}
           defaultLang={defaultLangFirst}
           onLangChange={(value) => setDefaultLangFirst(value)}
           value={inputValue}
