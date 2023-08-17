@@ -1,25 +1,16 @@
 import ConverterSectionFieldset from './ConverterSectionFieldset.jsx'
 import { useEffect, useState, useCallback } from 'react'
 import fetchTranslation from './fetchTranslation.jsx'
+import { debounceSetup } from './utils.js'
 const ConverterSection = (props) => {
   const [ defaultLangFirst, setDefaultLangFirst ] = useState('es')
   const [ defaultLangSecond, setDefaultLangSecond ] = useState('en')
   const [ defaultLangThird, setDefaultLangThird ] = useState('pt')
   const [ isLoading, setIsLoading ] = useState(false) 
   const [ inputValue, setInputValue ] = useState('')
-  const debounceSetup = (callback, ms) => {
-    let timerId
-    return (...args) => {
-      clearTimeout(timerId)
-      timerId = setTimeout(() => {
-        callback(...args)
-      }, ms)
-    }
-  }
   const debounceMs = 750
   const debounce = useCallback(
     debounceSetup(async (value) => {
-      setIsLoading(true)
       const debounceMsBetweenFetchs = 500
       const translate = async (languageTarget) => {
         const obj = {
@@ -39,6 +30,7 @@ const ConverterSection = (props) => {
     []
   ) 
   useEffect(() => {
+    setIsLoading(true)
     if (inputValue !== '') {
       debounce(inputValue)
     }
