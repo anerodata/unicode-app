@@ -21,6 +21,11 @@ const ConverterSection = (props) => {
         const res = await fetchTranslation(obj)
         return res
       }
+      if (value === '') {
+        props.onTextToReplaceChange('', '')
+        return 
+      }
+      setIsLoading(true)
       const secondLangRes = await translate(defaultLangSecond)
       await new Promise((resolve) => setTimeout(() => resolve()), debounceMsBetweenFetchs)
       const thirdLangRes = await translate(defaultLangThird)
@@ -30,10 +35,7 @@ const ConverterSection = (props) => {
     []
   ) 
   useEffect(() => {
-    setIsLoading(true)
-    if (inputValue !== '') {
-      debounce(inputValue)
-    }
+    debounce(inputValue)
   }, [inputValue])
   return (
     <section>
