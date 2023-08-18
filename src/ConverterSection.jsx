@@ -10,18 +10,18 @@ const ConverterSection = (props) => {
   const [ inputValue, setInputValue ] = useState('')
   const debounceMs = 750
   const debounce = useCallback(
-    debounceSetup(async (value) => {
+    debounceSetup(async ({ inputValue, defaultLangFirst, defaultLangSecond, defaultLangThird}) => {
       const debounceMsBetweenFetchs = 500
       const translate = async (languageTarget) => {
         const obj = {
-          query: value,
+          query: inputValue,
           source: defaultLangFirst,
           target: languageTarget
         }
         const res = await fetchTranslation(obj)
         return res
       }
-      if (value === '') {
+      if (inputValue === '') {
         props.onTextToReplaceChange('', '')
         return 
       }
@@ -35,8 +35,13 @@ const ConverterSection = (props) => {
     []
   ) 
   useEffect(() => {
-    debounce(inputValue)
-  }, [inputValue])
+    debounce({
+      inputValue: inputValue,
+      defaultLangFirst: defaultLangFirst,
+      defaultLangSecond: defaultLangSecond,
+      defaultLangThird: defaultLangThird
+    })
+  }, [inputValue, defaultLangFirst, defaultLangSecond, defaultLangThird])
   return (
     <section>
       <div>
