@@ -45,9 +45,6 @@ const ConverterSection = (props) => {
   return (
     <section>
       <div>
-        { defaultLangFirst }
-        { defaultLangSecond }
-        { defaultLangThird }
         <ConverterSectionFieldset
           title="Texto"
           onTextToReplaceChange={(value) => setInputValue(value)}
