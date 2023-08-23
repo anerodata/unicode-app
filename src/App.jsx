@@ -25,9 +25,9 @@ const App = () => {
   return (
     <div>
       <QueryClientProvider client={queryClient}>
-        <ConverterSection onTextToReplaceChange={(secondValue, thirdValue) => {
-          setSecondTextModifiedHook(replaceUTFWithUnicode(secondValue))
-          setThirdTextModifiedHook(replaceUTFWithUnicode(thirdValue))
+        <ConverterSection onTextToReplaceChange={(values) => {
+          setSecondTextModifiedHook(replaceUTFWithUnicode(values[0]))
+          setThirdTextModifiedHook(replaceUTFWithUnicode(values[0]))
         }}
           secondValueModified={secondTextModifiedHook} 
           thirdValueModified={thirdTextModifiedHook}

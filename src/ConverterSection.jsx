@@ -22,14 +22,14 @@ const ConverterSection = (props) => {
         return res
       }
       if (inputValue === '') {
-        props.onTextToReplaceChange('', '')
+        props.onTextToReplaceChange(['', ''])
         return 
       }
       setIsLoading(true)
       const secondLangRes = await translate(defaultLangSecond)
       await new Promise((resolve) => setTimeout(() => resolve()), debounceMsBetweenFetchs)
       const thirdLangRes = await translate(defaultLangThird)
-      props.onTextToReplaceChange(secondLangRes.translatedText, thirdLangRes.translatedText)
+      props.onTextToReplaceChange([secondLangRes.translatedText, thirdLangRes.translatedText])
       setIsLoading(false)
     }, debounceMs),
     []
