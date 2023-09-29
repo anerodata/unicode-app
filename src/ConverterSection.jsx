@@ -43,13 +43,39 @@ const ConverterSection = (props) => {
     }, debounceMs),
     []
   ) 
+  const getTranslationSection = () => {
+    if (props.showTranslationSecion === true) {
+      return (
+        <div>
+        <ConverterSectionFieldset
+          title={getTitleSectionTranslated(defaultLangSecond)}
+          value={props.secondValueModified}
+          readOnly={true}
+          defaultLang={defaultLangSecond}
+          loading={isLoading}
+          onLangChange={(value) => setDefaultLangSecond(value)}
+        />
+        <ConverterSectionFieldset
+          title={getTitleSectionTranslated(defaultLangThird)}
+          value={props.thirdValueModified}
+          readOnly={true}
+          defaultLang={defaultLangThird}
+          loading={isLoading}
+          onLangChange={(value) => setDefaultLangThird(value)}
+        />
+        </div>
+      )
+    }
+  }
   useEffect(() => {
-    debounce({
-      inputValue: inputValue,
-      defaultLangFirst: defaultLangFirst,
-      defaultLangSecond: defaultLangSecond,
-      defaultLangThird: defaultLangThird
-    })
+    if (props.showTranslationSecion === true) {
+      debounce({
+        inputValue: inputValue,
+        defaultLangFirst: defaultLangFirst,
+        defaultLangSecond: defaultLangSecond,
+        defaultLangThird: defaultLangThird
+      })
+    } 
   }, [inputValue, defaultLangFirst, defaultLangSecond, defaultLangThird])
   return (
     <section>
@@ -69,22 +95,7 @@ const ConverterSection = (props) => {
           value={props.firstValueModified}
           readOnly={true}
         />
-        <ConverterSectionFieldset
-          title={getTitleSectionTranslated(defaultLangSecond)}
-          value={props.secondValueModified}
-          readOnly={true}
-          defaultLang={defaultLangSecond}
-          loading={isLoading}
-          onLangChange={(value) => setDefaultLangSecond(value)}
-        />
-        <ConverterSectionFieldset
-          title={getTitleSectionTranslated(defaultLangThird)}
-          value={props.thirdValueModified}
-          readOnly={true}
-          defaultLang={defaultLangThird}
-          loading={isLoading}
-          onLangChange={(value) => setDefaultLangThird(value)}
-        />
+        {getTranslationSection()}
       </div>
     </section>
   )

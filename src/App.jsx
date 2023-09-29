@@ -4,6 +4,7 @@ import ConverterSection from './ConverterSection.jsx'
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 
 const App = () => {
+  const [ showTranslationSection, setShowTranslaionSection ] = useState(false)
   const [ firstTextModifiedHook, setFirstTextModifiedHook ] = useState('')
   const [ secondTextModifiedHook, setSecondTextModifiedHook ] = useState('')
   const [ thirdTextModifiedHook, setThirdTextModifiedHook ] = useState('')
@@ -37,6 +38,7 @@ const App = () => {
           firstValueModified={firstTextModifiedHook} 
           secondValueModified={secondTextModifiedHook} 
           thirdValueModified={thirdTextModifiedHook}
+          showTranslationSection={showTranslationSection}
         />
       </QueryClientProvider>
     </div>
