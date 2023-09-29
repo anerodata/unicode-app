@@ -62,6 +62,12 @@ const ConverterSection = (props) => {
           value={inputValue}
         />
         <ConverterSectionFieldset
+          title={getTitleSectionTranslated(defaultLangFirst)}
+          value={inputValue}
+          readOnly={true}
+          onLangChange={(value) => setDefaultLangSecond(value)}
+        />
+        <ConverterSectionFieldset
           title={getTitleSectionTranslated(defaultLangSecond)}
           value={props.secondValueModified}
           readOnly={true}
@@ -70,10 +76,10 @@ const ConverterSection = (props) => {
           onLangChange={(value) => setDefaultLangSecond(value)}
         />
         <ConverterSectionFieldset
-          title="Texto con caracteres Unicode en notación de escape"
+          title={getTitleSectionTranslated(defaultLangThird)}
           value={props.thirdValueModified}
           readOnly={true}
-          title={getTitleSectionTranslated(defaultLangThird)}
+          defaultLang={defaultLangThird}
           loading={isLoading}
           onLangChange={(value) => setDefaultLangThird(value)}
         />
