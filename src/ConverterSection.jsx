@@ -2,6 +2,15 @@ import ConverterSectionFieldset from './ConverterSectionFieldset.jsx'
 import { useEffect, useState, useCallback } from 'react'
 import fetchTranslation from './fetchTranslation.jsx'
 import { debounceSetup } from './utils.js'
+import langs from './data/langs.js'
+const getTitleSectionTranslated = (langCode) => {
+  const lang = langs.find((lang) => lang.code === langCode)
+  return `Texto en ${lang.name} de con caracteres Unicode en notación de escape`
+}
+const getTitleSectionUser = (langCode) => {
+  const lang = langs.find((lang) => lang.code === langCode)
+  return `Texto en ${lang.name}`
+}
 const ConverterSection = (props) => {
   const [ defaultLangFirst, setDefaultLangFirst ] = useState('es')
   const [ defaultLangSecond, setDefaultLangSecond ] = useState('en')
@@ -46,14 +55,14 @@ const ConverterSection = (props) => {
     <section>
       <div>
         <ConverterSectionFieldset
-          title="Texto"
+          title={getTitleSectionUser(defaultLangFirst)}
           onTextToReplaceChange={(value) => setInputValue(value)}
           defaultLang={defaultLangFirst}
           onLangChange={(value) => setDefaultLangFirst(value)}
           value={inputValue}
         />
         <ConverterSectionFieldset
-          title="Texto con caracteres Unicode en notación de escape"
+          title={getTitleSectionTranslated(defaultLangSecond)}
           value={props.secondValueModified}
           readOnly={true}
           defaultLang={defaultLangSecond}
@@ -64,7 +73,7 @@ const ConverterSection = (props) => {
           title="Texto con caracteres Unicode en notación de escape"
           value={props.thirdValueModified}
           readOnly={true}
-          defaultLang={defaultLangThird}
+          title={getTitleSectionTranslated(defaultLangThird)}
           loading={isLoading}
           onLangChange={(value) => setDefaultLangThird(value)}
         />
