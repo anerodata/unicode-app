@@ -26,11 +26,14 @@ const App = () => {
   return (
     <div>
       <QueryClientProvider client={queryClient}>
-        <ConverterSection onTextToReplaceChange={(values) => {
-          setFirstTextModifiedHook(replaceUTFWithUnicode(values[0]))
-          setSecondTextModifiedHook(replaceUTFWithUnicode(values[0]))
-          setThirdTextModifiedHook(replaceUTFWithUnicode(values[1]))
-        }}
+        <ConverterSection
+          onTextToTranslateChange={(values) => {
+            setSecondTextModifiedHook(replaceUTFWithUnicode(values[0]))
+            setThirdTextModifiedHook(replaceUTFWithUnicode(values[1]))
+          }}
+          onTextToReplaceChange={(value) => {
+            setFirstTextModifiedHook(replaceUTFWithUnicode(value))
+          }}
           firstValueModified={firstTextModifiedHook} 
           secondValueModified={secondTextModifiedHook} 
           thirdValueModified={thirdTextModifiedHook}

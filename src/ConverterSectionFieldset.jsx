@@ -26,7 +26,7 @@ const ConverterSection = (props) => {
       {langSelect}
       <textarea cols="30" rows="10" value={value} readOnly={props.readOnly} onChange={(e) => {
         const newText = e.target.value
-        props.onTextToReplaceChange(newText)
+        props.onValueChange(newText)
       }}>
       </textarea>
     </div>

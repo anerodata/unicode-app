@@ -31,14 +31,14 @@ const ConverterSection = (props) => {
         return res
       }
       if (inputValue === '') {
-        props.onTextToReplaceChange(['', ''])
+        props.onTextToTranslateChange(['', ''])
         return 
       }
       setIsLoading(true)
       const secondLangRes = await translate(defaultLangSecond)
       await new Promise((resolve) => setTimeout(() => resolve()), debounceMsBetweenFetchs)
       const thirdLangRes = await translate(defaultLangThird)
-      props.onTextToReplaceChange([secondLangRes.translatedText, thirdLangRes.translatedText])
+      props.onTextToTranslateChange([secondLangRes.translatedText, thirdLangRes.translatedText])
       setIsLoading(false)
     }, debounceMs),
     []
@@ -57,13 +57,16 @@ const ConverterSection = (props) => {
         <ConverterSectionFieldset
           title={getTitleSectionUser(defaultLangFirst)}
           value={inputValue}
-          onTextToReplaceChange={(value) => setInputValue(value)}
+          onValueChange={(value) => {
+            setInputValue(value)
+            props.onTextToReplaceChange(value)
+          }}
           defaultLang={defaultLangFirst}
           onLangChange={(value) => setDefaultLangFirst(value)}
         />
         <ConverterSectionFieldset
           title={getTitleSectionTranslated(defaultLangFirst)}
-          value={inputValue}
+          value={props.firstValueModified}
           readOnly={true}
         />
         <ConverterSectionFieldset
