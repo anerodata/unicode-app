@@ -5,16 +5,16 @@ import { debounceSetup } from './utils.js'
 import langs from './data/langs.js'
 const getTitleSectionTranslated = (langCode) => {
   const lang = langs.find((lang) => lang.code === langCode)
-  return `Texto en ${lang.name} de con caracteres Unicode en notación de escape`
+  return `Texto en ${lang.name} con caracteres Unicode en notación de escape`
 }
 const getTitleSectionUser = (langCode) => {
   const lang = langs.find((lang) => lang.code === langCode)
   return `Texto en ${lang.name}`
 }
 const ConverterSection = (props) => {
-  const [ defaultLangFirst, setDefaultLangFirst ] = useState('es')
-  const [ defaultLangSecond, setDefaultLangSecond ] = useState('en')
-  const [ defaultLangThird, setDefaultLangThird ] = useState('pt')
+  const [ defaultLangFirst, setDefaultLangFirst ] = useState('')
+  const [ defaultLangSecond, setDefaultLangSecond ] = useState('')
+  const [ defaultLangThird, setDefaultLangThird ] = useState('')
   const [ isLoading, setIsLoading ] = useState(false) 
   const [ inputValue, setInputValue ] = useState('')
   const debounceMs = 750
@@ -44,7 +44,7 @@ const ConverterSection = (props) => {
     []
   ) 
   const getTranslationSection = () => {
-    if (props.showTranslationSecion === true) {
+    if (defaultLangFirst !== '') {
       return (
         <div>
         <ConverterSectionFieldset
@@ -68,7 +68,7 @@ const ConverterSection = (props) => {
     }
   }
   useEffect(() => {
-    if (props.showTranslationSecion === true) {
+    if (defaultLangFirst !== '') {
       debounce({
         inputValue: inputValue,
         defaultLangFirst: defaultLangFirst,
@@ -81,17 +81,16 @@ const ConverterSection = (props) => {
     <section>
       <div>
         <ConverterSectionFieldset
-          title={getTitleSectionUser(defaultLangFirst)}
+          //title={getTitleSectionUser(defaultLangFirst)}
           value={inputValue}
           onValueChange={(value) => {
             setInputValue(value)
             props.onTextToReplaceChange(value)
           }}
-          defaultLang={defaultLangFirst}
           onLangChange={(value) => setDefaultLangFirst(value)}
         />
         <ConverterSectionFieldset
-          title={getTitleSectionTranslated(defaultLangFirst)}
+          //title={getTitleSectionTranslated(defaultLangFirst)}
           value={props.firstValueModified}
           readOnly={true}
         />
