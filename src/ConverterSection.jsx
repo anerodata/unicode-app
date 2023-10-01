@@ -43,8 +43,9 @@ const ConverterSection = (props) => {
     }, debounceMs),
     []
   ) 
+  const isLangDefined = () => defaultLangFirst !== '' && defaultLangSecond !== '' && defaultLangThird !== ''
   const getTranslationSection = () => {
-    if (defaultLangFirst !== '') {
+    if (isLangDefined()) {
       return (
         <div>
         <ConverterSectionFieldset
@@ -68,7 +69,7 @@ const ConverterSection = (props) => {
     }
   }
   useEffect(() => {
-    if (defaultLangFirst !== '') {
+    if (isLangDefined()) {
       debounce({
         inputValue: inputValue,
         defaultLangFirst: defaultLangFirst,
