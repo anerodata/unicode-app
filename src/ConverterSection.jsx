@@ -4,12 +4,18 @@ import fetchTranslation from './fetchTranslation.jsx'
 import { debounceSetup } from './utils.js'
 import langs from './data/langs.js'
 const getTitleSectionTranslated = (langCode) => {
-  const lang = langs.find((lang) => lang.code === langCode)
-  return `Texto en ${lang.name} con caracteres Unicode en notación de escape`
+  if (langCode) {
+    const lang = langs.find((lang) => lang.code === langCode)
+    return `Texto en ${lang.name} con caracteres Unicode en notación de escape`
+  }
+  return ''
 }
 const getTitleSectionUser = (langCode) => {
-  const lang = langs.find((lang) => lang.code === langCode)
-  return `Texto en ${lang.name}`
+  if (langCode) {
+    const lang = langs.find((lang) => lang.code === langCode)
+    return `Texto en ${lang.name}`
+  }
+  return ''
 }
 const ConverterSection = (props) => {
   const [ defaultLangFirst, setDefaultLangFirst ] = useState('')
