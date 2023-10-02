@@ -88,7 +88,7 @@ const ConverterSection = (props) => {
     <section>
       <div>
         <ConverterSectionFieldset
-          //title={getTitleSectionUser(defaultLangFirst)}
+          title={getTitleSectionUser(defaultLangFirst)}
           value={inputValue}
           onValueChange={(value) => {
             setInputValue(value)
@@ -97,7 +97,7 @@ const ConverterSection = (props) => {
           onLangChange={(value) => setDefaultLangFirst(value)}
         />
         <ConverterSectionFieldset
-          //title={getTitleSectionTranslated(defaultLangFirst)}
+          title={getTitleSectionTranslated(defaultLangFirst)}
           value={props.firstValueModified}
           readOnly={true}
         />
