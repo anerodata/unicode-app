@@ -18,9 +18,9 @@ const getTitleSectionUser = (langCode) => {
   return ''
 }
 const ConverterSection = (props) => {
-  const [ defaultLangFirst, setDefaultLangFirst ] = useState('')
-  const [ defaultLangSecond, setDefaultLangSecond ] = useState('')
-  const [ defaultLangThird, setDefaultLangThird ] = useState('')
+  let [ defaultLangFirst, setDefaultLangFirst ] = useState(props.defaultLangs.first)
+  let [ defaultLangSecond, setDefaultLangSecond ] = useState(props.defaultLangs.second)
+  let [ defaultLangThird, setDefaultLangThird ] = useState(props.defaultLangs.third)
   const [ isLoading, setIsLoading ] = useState(false) 
   const [ inputValue, setInputValue ] = useState('')
   const debounceMs = 750

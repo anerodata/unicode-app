@@ -23,6 +23,19 @@ const App = () => {
       return '\\u' + '0'.repeat(amountOfZeros < 0 ? 0 : amountOfZeros) + codePoint
     })
   }
+  const getDefaultLangs = () => {
+    let defaultLangs = {
+      first: '',
+      second: '',
+      third: ''
+    }
+    if (location.href.includes('translator=true')) {
+      defaultLangs.first = 'es'
+      defaultLangs.second = 'en'
+      defaultLangs.third = 'pt'
+    }
+    return defaultLangs
+  }
   return (
     <div>
       <QueryClientProvider client={queryClient}>
@@ -37,6 +50,7 @@ const App = () => {
           firstValueModified={firstTextModifiedHook} 
           secondValueModified={secondTextModifiedHook} 
           thirdValueModified={thirdTextModifiedHook}
+          defaultLangs={getDefaultLangs()}
         />
       </QueryClientProvider>
     </div>
